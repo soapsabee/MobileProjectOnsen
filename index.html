@@ -20,12 +20,12 @@
      
       <div class="left">
         <ons-toolbar-button>
-            <i class="zmdi zmdi-shopping-basket"></i>
+            <i style ="color: tomato; font-size: 20px;"class="zmdi zmdi-shopping-basket"></i>
         </ons-toolbar-button>
       </div>
       <div class="right">
         <ons-toolbar-button>
-          <i class="zmdi zmdi-pin-help"></i>
+          <i style ="color: tomato; font-size: 20px;" class="zmdi zmdi-pin-help"></i>
         </ons-toolbar-button>
       </div>
     </ons-toolbar>
@@ -33,7 +33,7 @@
     <ons-tabbar swipeable position="auto">
       <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
       </ons-tab>
-      <ons-tab page="tab2.html" label="Cart" icon="md-settings">
+      <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart">
       </ons-tab>
     </ons-tabbar>
 
@@ -112,7 +112,7 @@
               <p style="text-align: center;">Furniter</p>
             </div>
           </ons-col>
-          <ons-col style="background: black; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
+          <ons-col style="background: aquamarine; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
             <div class="category_wrapper">
               <figure class="category_thumbnail">
                 <i style="font-size:30px;" class="zmdi zmdi-smartphone-android"></i>
@@ -163,10 +163,12 @@
         <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
         </div>
         <div class="center">
+          <span class ="list-item__title">
           Apple Watch Series 3 GPS 42mm Grey
-          <p style="color: tomato;">
+          </span>
+          <span class ="list-item__subtitle" style="color: tomato;">
             2,500 b
-          </p>
+          </span>
         </div>
         <div class="right">
           <i class="zmdi zmdi-delete"></i>
@@ -176,13 +178,15 @@
         <div class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
         </div>
         <div class="center">
-          <p>
-          MICROLAB SPEAKER 2.1
-        </p>
-          <p style="color: tomato;">
-            2,500 b
-          </p>
-        </div>
+            <span class="list-item__title">
+            Microlab Speaker 2.1
+            
+            </span>
+            
+            <span class ="list-item__subtitle"style="color: tomato;">
+                2,500 b
+            </span>
+          </div>
         <div class="right">
           <i class="zmdi zmdi-delete"></i>
         </div>
@@ -191,19 +195,19 @@
         <div class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
         </div>
         <div class="center">
-          <p>
+        <span class ="list-item__title">
           Nike Air Max 90 ดำเทาแดง เบอร์ 40
-          </p>
-          <p style="color: tomato;">
+        </span>
+        <span class ="list-item__subtitle" style="color: tomato;">
             2,500 b
-          </p>
+        </span>
         </div>
         <div class="right">
           <i class="zmdi zmdi-delete"></i>
         </div>
       </ons-list-item>
 
-      <ons-button style="width: 320px;">
+      <ons-button style="width: 100%;">
         <p style="text-align: center;">Proceed To Play</p>
       </ons-button>
     </ons-page>
