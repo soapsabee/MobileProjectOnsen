@@ -40,8 +40,8 @@
 
           
               
-                <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
-                  <ons-carousel-item style="background-color: #085078;">
+                <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 200px;">
+                  <ons-carousel-item style="background-color: #085078;"  >
                     <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
                       BLUE
                     </div>
@@ -58,10 +58,92 @@
                   </ons-carousel-item>
                 </ons-carousel>
 
+                
+                <div>
+                 
+                    <ons-row class="category">
+                      <ons-col style ="background: yellow; width: 75px; height: 80px; "modifier="nodivider" id="Category_1" >
+                        <div class="category_wrapper">
+                          <figure class="category_thumbnail">
+                            <ons-icon icon="fa-users"></ons-icon>
+                            <div class="category_title" id="Category_1_name">Party</div>
+                          </figure>
+                        </div>
+                      </ons-col>
+                      <ons-col modifier="nodivider" id="Category_2">
+                        <div class="category_wrapper">
+                          <figure class="category_thumbnail">
+                            <ons-icon icon="fa-headphones"></ons-icon>
+                            <div class="category_title" id="Category_2_name">Relax</div>
+                          </figure>
+                        </div>
+                      </ons-col>
+                      <ons-col modifier="nodivider" id="Category_3">
+                          <div class="category_wrapper">
+                            <figure class="category_thumbnail">
+                              <ons-icon icon="fa-headphones"></ons-icon>
+                              <div class="category_title" id="Category_3_name">Relax</div>
+                            </figure>
+                          </div>
+                        </ons-col>
+                    </ons-row>
 
-          <p style="text-align: center;">
-            This is the first page.
-          </p>
+                    <ons-row class="category">
+                        <ons-col style ="background: yellow; width: 75px; height: 80px; "modifier="nodivider" id="Category_1" >
+                          <div class="category_wrapper">
+                            <figure class="category_thumbnail">
+                              <ons-icon icon="fa-users"></ons-icon>
+                              <div class="category_title" id="Category_1_name">Party</div>
+                            </figure>
+                          </div>
+                        </ons-col>
+                        <ons-col modifier="nodivider" id="Category_2">
+                          <div class="category_wrapper">
+                            <figure class="category_thumbnail">
+                              <ons-icon icon="fa-headphones"></ons-icon>
+                              <div class="category_title" id="Category_2_name">Relax</div>
+                            </figure>
+                          </div>
+                        </ons-col>
+                        <ons-col modifier="nodivider" id="Category_3">
+                            <div class="category_wrapper">
+                              <figure class="category_thumbnail">
+                                <ons-icon icon="fa-headphones"></ons-icon>
+                                <div class="category_title" id="Category_3_name">Relax</div>
+                              </figure>
+                            </div>
+                          </ons-col>
+                      </ons-row>
+
+                      <ons-row class="category">
+                          <ons-col style ="background: yellow; width: 75px; height: 80px; "modifier="nodivider" id="Category_1" >
+                            <div class="category_wrapper">
+                              <figure class="category_thumbnail">
+                                <ons-icon icon="fa-users"></ons-icon>
+                                <div class="category_title" id="Category_1_name">Party</div>
+                              </figure>
+                            </div>
+                          </ons-col>
+                          <ons-col modifier="nodivider" id="Category_2">
+                            <div class="category_wrapper">
+                              <figure class="category_thumbnail">
+                                <ons-icon icon="fa-headphones"></ons-icon>
+                                <div class="category_title" id="Category_2_name">Relax</div>
+                              </figure>
+                            </div>
+                          </ons-col>
+                          <ons-col modifier="nodivider" id="Category_3">
+                              <div class="category_wrapper">
+                                <figure class="category_thumbnail">
+                                  <ons-icon icon="fa-headphones"></ons-icon>
+                                  <div class="category_title" id="Category_3_name">Relax</div>
+                                </figure>
+                              </div>
+                            </ons-col>
+                        </ons-row>
+                </div>
+
+    
         </ons-page>
       </template>
       
@@ -79,6 +161,8 @@
  document.addEventListener('prechange', function(event) {
   document.querySelector('ons-toolbar .center')
     .innerHTML = event.tabItem.getAttribute('label');
+
+    
 });
 </script>
 </html>
