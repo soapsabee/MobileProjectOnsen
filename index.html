@@ -2,207 +2,222 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
 
 <body>
 
 
-    <ons-page>
-        <ons-toolbar>
-          <div class="center">Home</div>
-          <div class="left">
-              <ons-toolbar-button><ons-icon icon="ion-ios-camera-outline"></ons-icon></ons-toolbar-button>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Home</div>
+     
+      <div class="left">
+        <ons-toolbar-button>
+            <i class="zmdi zmdi-shopping-basket"></i>
+        </ons-toolbar-button>
+      </div>
+      <div class="right">
+        <ons-toolbar-button>
+          <i class="zmdi zmdi-pin-help"></i>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="Cart" icon="md-settings">
+      </ons-tab>
+    </ons-tabbar>
+
+  </ons-page>
+
+  <template id="tab1.html">
+
+    <ons-page id="Tab1">
+      <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
+      </p>
+
+
+
+      <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 200px;">
+        <ons-carousel-item style="background: url('pic/1.jpg') no-repeat center; background-size: 300px;">
+
+        </ons-carousel-item>
+        <ons-carousel-item style="background: url('pic/2.jpg') no-repeat center; background-size: 300px;">
+
+        </ons-carousel-item>
+        <ons-carousel-item style="background: url('pic/3.jpg') no-repeat center; background-size: 300px;">
+
+        </ons-carousel-item>
+      </ons-carousel>
+
+
+      <div>
+
+        <ons-row class="category" style="margin-top:20px; ">
+          <ons-col style="background: yellow; width: 75px; height: auto; " modifier="nodivider" id="Category_1">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-face"></i>
+
+              </figure>
+              <p style="text-align: center;">Beauty</p>
             </div>
-            <div class="right">
-                <ons-toolbar-button><ons-icon icon="ion-ios-camera-outline"></ons-icon></ons-toolbar-button>
-              </div>
-        </ons-toolbar>
-      
-        <ons-tabbar swipeable position="auto">
-          <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
-          </ons-tab>
-          <ons-tab page="tab2.html" label="Cart" icon="md-settings" >
-          </ons-tab>
-        </ons-tabbar>
+          </ons-col>
+          <ons-col style="background: red; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-bike"></i>
 
-      </ons-page>
-      
-      <template id="tab1.html">
-        
-        <ons-page id="Tab1">
-            <p style="text-align: center; margin-top: 10px;">
-                <ons-search-input
-                  placeholder="Search"
-                  onchange="ons.notification.alert('Searched for: ' + this.value)"
-                ></ons-search-input>
-              </p>
+              </figure>
+              <p style="text-align: center;">Sport</p>
+            </div>
+          </ons-col>
+          <ons-col style="background: palegreen; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-laptop-chromebook"></i>
 
-          
-              
-                <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 200px;">
-                  <ons-carousel-item style="background: url('pic/1.jpg') no-repeat center; background-size: 300px;" >
-                 
-                  </ons-carousel-item>
-                  <ons-carousel-item style="background: url('pic/2.jpg') no-repeat center; background-size: 300px;">
-                    
-                  </ons-carousel-item>
-                  <ons-carousel-item style="background: url('pic/3.jpg') no-repeat center; background-size: 300px;">
-                   
-                  </ons-carousel-item>
-                </ons-carousel>
+              </figure>
+              <p style="text-align: center;">Computer</p>
+            </div>
+          </ons-col>
+        </ons-row>
 
-                
-                <div>
-                 
-                    <ons-row class="category">
-                      <ons-col style ="background: yellow; width: 75px; height: auto; "modifier="nodivider" id="Category_1" >
-                        <div class="category_wrapper">
-                          <figure class="category_thumbnail">
-                              <i class="zmdi zmdi-face"></i>
-                            <div class="category_title" id="Category_1_name">Beauty</div>
-                          </figure>
-                        </div>
-                      </ons-col>
-                      <ons-col style ="background: red; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
-                        <div class="category_wrapper">
-                          <figure class="category_thumbnail">
-                              <i class="zmdi zmdi-bike"></i>
-                            <div class="category_title" id="Category_2_name">Sport</div>
-                          </figure>
-                        </div>
-                      </ons-col>
-                      <ons-col style ="background: palegreen; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
-                          <div class="category_wrapper">
-                            <figure class="category_thumbnail">
-                                <i class="zmdi zmdi-laptop-chromebook"></i>
-                              <div class="category_title" id="Category_3_name">Computer</div>
-                            </figure>
-                          </div>
-                        </ons-col>
-                    </ons-row>
+        <ons-row class="category">
+          <ons-col style="background: pink; width: 75px; height: auto; " modifier="nodivider" id="Category_1">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-camera"></i>
 
-                    <ons-row class="category">
-                        <ons-col style ="background: pink; width: 75px; height: auto; "modifier="nodivider" id="Category_1" >
-                          <div class="category_wrapper">
-                            <figure class="category_thumbnail">
-                                <i class="zmdi zmdi-camera"></i>
-                              <div class="category_title" id="Category_1_name">Camera</div>
-                            </figure>
-                          </div>
-                        </ons-col>
-                        <ons-col style ="background: green; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
-                          <div class="category_wrapper">
-                            <figure class="category_thumbnail">
-                                <i class="zmdi zmdi-home"></i>
-                              <div class="category_title" id="Category_2_name">Furniter</div>
-                            </figure>
-                          </div>
-                        </ons-col>
-                        <ons-col style ="background: black; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
-                            <div class="category_wrapper">
-                              <figure class="category_thumbnail">
-                                  <i class="zmdi zmdi-smartphone-android"></i>
-                                <div class="category_title" id="Category_3_name">SmartPhone</div>
-                              </figure>
-                            </div>
-                          </ons-col>
-                      </ons-row>
+              </figure>
+              <p style="text-align: center;">Camera</p>
+            </div>
+          </ons-col>
+          <ons-col style="background: green; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-home"></i>
 
-                      <ons-row class="category">
-                          <ons-col style ="background: yellow; width: 75px; height: auto; "modifier="nodivider" id="Category_1" >
-                            <div class="category_wrapper">
-                              <figure class="category_thumbnail">
-                                  <i class="zmdi zmdi-toys"></i>
-                                <div class="category_title" id="Category_1_name">Toys</div>
-                              </figure>
-                            </div>
-                          </ons-col>
-                          <ons-col style ="background: wheat; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
-                            <div class="category_wrapper">
-                              <figure class="category_thumbnail">
-                                  <i style="size:200px;" class="zmdi zmdi-devices"></i>                            
-                              </figure>
-                              <p style="text-align: center;">HardWare</p>
-                            </div>
-                          </ons-col>
-                          <ons-col style ="background: orange; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
-                              <div class="category_wrapper">
-                                <figure class="category_thumbnail">
-                                  <ons-icon size="30px" icon="fa-headphones"></ons-icon>
-                              
-                                </figure>
-                                <p style="text-align: center;">Appliance</p>
-                              </div>
-                            </ons-col>
-                        </ons-row>
-                </div>
+              </figure>
+              <p style="text-align: center;">Furniter</p>
+            </div>
+          </ons-col>
+          <ons-col style="background: black; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-smartphone-android"></i>
+              </figure>
+              <p style="text-align: center;">SmartPhone</p>
+            </div>
+          </ons-col>
+        </ons-row>
 
-    
-        </ons-page>
-      </template>
-      
-      <template id="tab2.html">
-        <ons-page id="Cart">
-            <ons-list-header>Shopping Cart</ons-list-header>
-            <ons-list-item style="background-color: white;">
-                <div  class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;" >
-                  </div>
-                <div class="center">
-                  Apple Watch Series 3 GPS 42mm Grey
-                  <p style="color: tomato;">
-                      2,500 b
-                    </p>
-                </div>
-                <div class="right">
-                    <i class="zmdi zmdi-delete"></i>
-                </div>
-              </ons-list-item>
-              <ons-list-item style="background-color: white;">
-                  <div  class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;" >
-                  </div>
-                  <div class="center">
-                    MICROLAB SPEAKER 2.1
-                    <p style="color: tomato;">
-                        2,500 b
-                    </p>
-                  </div>
-                  <div class="right">
-                      <i class="zmdi zmdi-delete"></i>
-                  </div>
-                </ons-list-item>
-                <ons-list-item style="background-color: white;">
-                    <div  class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;" >
-                    </div>
-                    <div class="center">
-                      Nike Air Max 90 ดำเทาแดง เบอร์ 40
-                      <p style="color: tomato;">
-                        2,500 b
-                      </p>
-                    </div>
-                    <div class="right">
-                        <i class="zmdi zmdi-delete"></i>
-                    </div>
-                  </ons-list-item>
+        <ons-row class="category">
+          <ons-col style="background: yellow; width: 75px; height: auto; " modifier="nodivider" id="Category_1">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-toys"></i>
 
-                  <ons-button style="width: 310px;">Proceed To Play</ons-button>
-        </ons-page>
-      </template>
+              </figure>
+              <p style="text-align: center;">Toys</p>
+            </div>
+          </ons-col>
+          <ons-col style="background: wheat; width: 75px; height: auto; " modifier="nodivider" id="Category_2">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <i style="font-size:30px;" class="zmdi zmdi-devices"></i>
+              </figure>
+              <p style="text-align: center;">HardWare</p>
+            </div>
+          </ons-col>
+          <ons-col style="background: orange; width: 75px; height: auto; " modifier="nodivider" id="Category_3">
+            <div class="category_wrapper">
+              <figure class="category_thumbnail">
+                <ons-icon size="30px" icon="fa-headphones"></ons-icon>
 
-      
+              </figure>
+              <p style="text-align: center;">Appliance</p>
+            </div>
+          </ons-col>
+        </ons-row>
+      </div>
+
+
+    </ons-page>
+  </template>
+
+  <template id="tab2.html">
+    <ons-page id="Cart">
+      <ons-list-header>Shopping Cart</ons-list-header>
+      <ons-list-item style="background-color: white;">
+        <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+        </div>
+        <div class="center">
+          Apple Watch Series 3 GPS 42mm Grey
+          <p style="color: tomato;">
+            2,500 b
+          </p>
+        </div>
+        <div class="right">
+          <i class="zmdi zmdi-delete"></i>
+        </div>
+      </ons-list-item>
+      <ons-list-item style="background-color: white;">
+        <div class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+        </div>
+        <div class="center">
+          <p>
+          MICROLAB SPEAKER 2.1
+        </p>
+          <p style="color: tomato;">
+            2,500 b
+          </p>
+        </div>
+        <div class="right">
+          <i class="zmdi zmdi-delete"></i>
+        </div>
+      </ons-list-item>
+      <ons-list-item style="background-color: white;">
+        <div class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+        </div>
+        <div class="center">
+          <p>
+          Nike Air Max 90 ดำเทาแดง เบอร์ 40
+          </p>
+          <p style="color: tomato;">
+            2,500 b
+          </p>
+        </div>
+        <div class="right">
+          <i class="zmdi zmdi-delete"></i>
+        </div>
+      </ons-list-item>
+
+      <ons-button style="width: 320px;">
+        <p style="text-align: center;">Proceed To Play</p>
+      </ons-button>
+    </ons-page>
+  </template>
+
+
 </body>
 <script>
- document.addEventListener('prechange', function(event) {
-  document.querySelector('ons-toolbar .center')
-    .innerHTML = event.tabItem.getAttribute('label');
+  document.addEventListener('prechange', function (event) {
+    document.querySelector('ons-toolbar .center')
+      .innerHTML = event.tabItem.getAttribute('label');
 
-    
-});
+
+  });
 </script>
+
 </html>
