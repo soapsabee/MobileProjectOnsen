@@ -12,7 +12,31 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
  <script src="ejs.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
 
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD2PflQpsiu2yNB0kAAaPZ1t7OL_f86HeE",
+    authDomain: "shopee-2428c.firebaseapp.com",
+    databaseURL: "https://shopee-2428c.firebaseio.com",
+    projectId: "shopee-2428c",
+    storageBucket: "shopee-2428c.appspot.com",
+    messagingSenderId: "808649182528"
+  };
+  firebase.initializeApp(config);
+</script>
+ <script>
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
+
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+</script>
 </head>
 
 <body>
@@ -37,7 +61,9 @@
     <ons-tabbar swipeable position="auto">
       <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
       </ons-tab>
-      <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart">
+      <ons-tab page="tab2.html" label="Shop" icon="fa-shopping-bag">
+      </ons-tab>
+      <ons-tab page="tab3.html" label="Cart" icon="fa-shopping-cart">
       </ons-tab>
     </ons-tabbar>
 
@@ -56,10 +82,11 @@
         <ons-carousel-item id="carousel1" >
 
         </ons-carousel-item>
-        <ons-carousel-item id="carousel2" style="background: url('pic/2.jpg') no-repeat center; background-size: 300px;">
+
+        <ons-carousel-item id="carousel2">
 
         </ons-carousel-item>
-        <ons-carousel-item id="carousel3" style="background: url('pic/3.jpg') no-repeat center; background-size: 300px;">
+        <ons-carousel-item id="carousel3">
 
         </ons-carousel-item>
       </ons-carousel>
@@ -93,7 +120,7 @@
     </ons-page>
   </template>
 
-  <template id="tab2.html">
+  <template id="tab3.html">
     <ons-page id="Cart">
       <ons-list-header>Shopping Cart</ons-list-header>
       <ons-list-item style="background-color: white; ">
@@ -150,6 +177,65 @@
     </ons-page>
   </template>
 
+    <template id="tab2.html">
+      <ons-page id="test">
+        <ons-list-header>Shopping Cart</ons-list-header>
+        <ons-list-item style="background-color: white; ">
+          <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+          </div>
+          <div class="center">
+            <span class="list-item__title">
+              Apple Watch Series 3 GPS 42mm Grey
+            </span>
+            <span class="list-item__subtitle" style="color: tomato;">
+              2,500 Bath
+            </span>
+          </div>
+          <div class="right">
+            <i class="zmdi zmdi-shopping-cart-plus"></i>
+          </div>
+        </ons-list-item>
+        <ons-list-item style="background-color: white;">
+          <div class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+          </div>
+          <div class="center">
+            <span class="list-item__title">
+              Microlab Speaker 2.1
+  
+            </span>
+  
+            <span class="list-item__subtitle" style="color: tomato;">
+              2,220 Bath
+            </span>
+          </div>
+          <div class="right">
+            <i class="zmdi zmdi-shopping-cart-plus"></i>
+
+          </div>
+        </ons-list-item>
+        <ons-list-item style="background-color: white;">
+          <div class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+          </div>
+          <div class="center">
+            <span class="list-item__title">
+              Nike Air Max 90 ดำเทาแดง เบอร์ 40
+            </span>
+            <span class="list-item__subtitle" style="color: tomato;">
+              1,500 Bath
+            </span>
+          </div>
+          <div class="right">
+            <i class="zmdi zmdi-shopping-cart-plus"></i>
+
+          </div>
+        </ons-list-item>
+  
+        <ons-button style="background-color:gold; width: 100%;">
+          <p style="color:gray; text-align: center;">Confirm Payment</p>
+        </ons-button>
+      </ons-page>
+
+    </template>
 
 </body>
 <script>
@@ -168,7 +254,25 @@
   });
 
 function getHomeData(){
-  $.getJSON('home.json', function(data){
+  var docRef = db.collection("shopee").doc("home");
+  docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        var data = doc.data();
+        $('#appname').html(data.appname);
+        var style = "background: url('"+data.slides[0]+"') no-repeat center; background-size:300px;";
+        $('#carousel1').attr('style',style);
+        var icon_template = $('#icon_template').html();
+        var html = ejs.render(icon_template, {categories : data.categories});
+        $('#icons').html(html);
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+  /*$.getJSON('home.json', function(data){
 
      
       $('#appname').html(data.appname);
@@ -177,9 +281,9 @@ function getHomeData(){
       var icon_template = $('#icon_template').html();
       var html = ejs.render(icon_template, {categories : data.categories});
     $('#icons').html(html);
-    console.log(html);
+    console.log(html);*/
     
-  });
+  
 }
 
 function getCartData(){
@@ -190,6 +294,8 @@ $('#appname').html(data.appname);
 });
   
 }
+
+
 
 </script>
 
