@@ -122,13 +122,13 @@ db.settings({
 
   <template id="tab3.html">
     <ons-page id="Cart">
-      <ons-list-header>Shopping Cart</ons-list-header>
+      <ons-list-header>List all product</ons-list-header>
       <ons-list-item style="background-color: white; ">
         <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
         </div>
         <div class="center">
           <span class="list-item__title">
-            Apple Watch Series 3 GPS 42mm Grey
+            
           </span>
           <span class="list-item__subtitle" style="color: tomato;">
             2,500 Bath
@@ -180,12 +180,16 @@ db.settings({
     <template id="tab2.html">
       <ons-page id="test">
         <ons-list-header>Shopping Cart</ons-list-header>
+
+        <div class="itemtitle"></div>
+        <ons-button onclick="addNewData();">AddNewData</ons-button>
+         
         <ons-list-item style="background-color: white; ">
           <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
           </div>
           <div class="center">
-            <span class="list-item__title">
-              Apple Watch Series 3 GPS 42mm Grey
+            <span class="list-item__title" id="itemtitle">
+              
             </span>
             <span class="list-item__subtitle" style="color: tomato;">
               2,500 Bath
@@ -195,40 +199,8 @@ db.settings({
             <i class="zmdi zmdi-shopping-cart-plus"></i>
           </div>
         </ons-list-item>
-        <ons-list-item style="background-color: white;">
-          <div class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-          </div>
-          <div class="center">
-            <span class="list-item__title">
-              Microlab Speaker 2.1
-  
-            </span>
-  
-            <span class="list-item__subtitle" style="color: tomato;">
-              2,220 Bath
-            </span>
-          </div>
-          <div class="right">
-            <i class="zmdi zmdi-shopping-cart-plus"></i>
-
-          </div>
-        </ons-list-item>
-        <ons-list-item style="background-color: white;">
-          <div class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-          </div>
-          <div class="center">
-            <span class="list-item__title">
-              Nike Air Max 90 ดำเทาแดง เบอร์ 40
-            </span>
-            <span class="list-item__subtitle" style="color: tomato;">
-              1,500 Bath
-            </span>
-          </div>
-          <div class="right">
-            <i class="zmdi zmdi-shopping-cart-plus"></i>
-
-          </div>
-        </ons-list-item>
+        
+          
   
         <ons-button style="background-color:gold; width: 100%;">
           <p style="color:gray; text-align: center;">Confirm Payment</p>
@@ -247,11 +219,26 @@ db.settings({
         getHomeData();
       }
       else if(event.index == 1){
+        console.log('Show clicked');
+        getShowProduct();
+      }
+      else if(event.index == 2){
         console.log('Cart clicked');
         getCartData();
       }
 
   });
+
+function getShowProduct(){
+  var allProductRef = db.collection("PRODUCTS").where("category","==","toys");
+  allProductRef.get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      var data = doc.data();
+      $('#itemtitle').html(data.title);
+        console.log(doc.id, " => ", doc.data());
+    });
+});
+}
 
 function getHomeData(){
   var docRef = db.collection("shopee").doc("home");
@@ -295,6 +282,25 @@ $('#appname').html(data.appname);
   
 }
 
+function addNewData(){
+    
+    var data = {
+      pid : 5,
+      title : 'iPhone7',
+      price : 3500,
+      category : 'electronic'
+    }
+    db.collection("PRODUCTS").add(data)
+
+    .then(function(docRef){
+        console.log("Document written with ID:", docRef.id);
+    })
+    .catch(function(error){
+      console.log("Error adding document:", error);
+    });
+
+
+}
 
 
 </script>
