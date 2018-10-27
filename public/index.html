@@ -138,38 +138,7 @@ db.settings({
           <i class="zmdi zmdi-delete"></i>
         </div>
       </ons-list-item>
-      <ons-list-item style="background-color: white;">
-        <div class="left" style="background: url('pic/item2.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-        </div>
-        <div class="center">
-          <span class="list-item__title">
-            Microlab Speaker 2.1
-
-          </span>
-
-          <span class="list-item__subtitle" style="color: tomato;">
-            2,220 Bath
-          </span>
-        </div>
-        <div class="right">
-          <i class="zmdi zmdi-delete"></i>
-        </div>
-      </ons-list-item>
-      <ons-list-item style="background-color: white;">
-        <div class="left" style="background: url('pic/item3.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-        </div>
-        <div class="center">
-          <span class="list-item__title">
-            Nike Air Max 90 ดำเทาแดง เบอร์ 40
-          </span>
-          <span class="list-item__subtitle" style="color: tomato;">
-            1,500 Bath
-          </span>
-        </div>
-        <div class="right">
-          <i class="zmdi zmdi-delete"></i>
-        </div>
-      </ons-list-item>
+  
 
       <ons-button style="background-color:greenyellow; width: 100%;">
         <p style="color:gray; text-align: center;">Proceed To Play</p>
@@ -179,28 +148,32 @@ db.settings({
 
     <template id="tab2.html">
       <ons-page id="test">
+      
         <ons-list-header>Shopping Cart</ons-list-header>
-
         <div class="itemtitle"></div>
         <ons-button onclick="addNewData();">AddNewData</ons-button>
-         
-        <ons-list-item style="background-color: white; ">
-          <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-          </div>
-          <div class="center">
-            <span class="list-item__title" id="itemtitle">
-              
-            </span>
-            <span class="list-item__subtitle" style="color: tomato;">
-              2,500 Bath
-            </span>
-          </div>
-          <div class="right">
-            <i class="zmdi zmdi-shopping-cart-plus"></i>
-          </div>
-        </ons-list-item>
         
-          
+        <div id="item_show"></div>
+        
+          <script id="item_template" type="text/template">
+            <% list_item.forEach(function(i){ var item = i.data(); %>
+            <ons-list-item style="background-color: white; ">
+                <div class="left" style="background: url('<%= item.picture %>') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+                </div>
+                <div class="center">
+                  <span class="list-item__title" >
+                    <div id="item"><%= item.title %></div>
+                  </span>
+                  <span class="list-item__subtitle" style="color: tomato;">
+                    <%= item.price %>
+                  </span>
+                </div>
+                <div class="right">
+                  <i class="zmdi zmdi-shopping-cart-plus"></i>
+                </div>
+              </ons-list-item>
+              <%});%>
+          </script>
   
         <ons-button style="background-color:gold; width: 100%;">
           <p style="color:gray; text-align: center;">Confirm Payment</p>
@@ -230,15 +203,15 @@ db.settings({
   });
 
 function getShowProduct(){
-  var allProductRef = db.collection("PRODUCTS").where("category","==","toys");
+  var allProductRef = db.collection("PRODUCTS");//.where("category","==","toys");
   allProductRef.get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      var data = doc.data();
-      $('#itemtitle').html(data.title);
-        console.log(doc.id, " => ", doc.data());
-    });
-});
+      var item = $('#item_template').html();
+      var html = ejs.render(item, {list_item: querySnapshot.docs})
+      $('#item_show').html(html);
+  
+      });
 }
+
 
 function getHomeData(){
   var docRef = db.collection("shopee").doc("home");
@@ -246,9 +219,14 @@ function getHomeData(){
     if (doc.exists) {
         console.log("Document data:", doc.data());
         var data = doc.data();
+        console.log("test",data.appname);
         $('#appname').html(data.appname);
-        var style = "background: url('"+data.slides[0]+"') no-repeat center; background-size:300px;";
+        var style = "background: url('https://firebasestorage.googleapis.com/v0/b/shopee-2428c.appspot.com/o/3.jpg?alt=media&token=3d8ed85a-71ff-4359-b9e6-8d65a23ececb') no-repeat center; background-size:300px;";
         $('#carousel1').attr('style',style);
+        var style = "background: url('https://firebasestorage.googleapis.com/v0/b/shopee-2428c.appspot.com/o/1.jpg?alt=media&token=82a6352f-51a1-43e1-92dd-daa2e5e9c80f') no-repeat center; background-size:300px;";
+        $('#carousel2').attr('style',style);
+        var style = "background: url('"+data.slides[2]+"') no-repeat center; background-size:300px;";
+        $('#carousel3').attr('style',style);
         var icon_template = $('#icon_template').html();
         var html = ejs.render(icon_template, {categories : data.categories});
         $('#icons').html(html);
