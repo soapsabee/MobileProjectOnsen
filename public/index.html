@@ -58,7 +58,7 @@ db.settings({
       </div>
     </ons-toolbar>
 
-    <ons-tabbar swipeable position="auto">
+    <ons-tabbar swipeable position="auto" id="tabbar">
       <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
       </ons-tab>
       <ons-tab page="tab2.html" label="Shop" icon="fa-shopping-bag">
@@ -98,7 +98,7 @@ db.settings({
             <script id="icon_template" type="text/template">
               <ons-row class="category" style="margin-top:20px; ">
               <% categories.forEach(function(category){%>
-          <ons-col style="background: tomato; height: auto; " width="33%"modifier="nodivider">
+          <ons-col style="background: tomato; height: auto; " width="33%"modifier="nodivider" onclick="ShowFromType('<%= category.name %>')">
             <div class="category_wrapper">
               <p style="text-align:center;" class="category_thumbnail">
                 <ons-icon size="50px" id="icon1" icon="<%= category.icon %>"></ons-icon>       
@@ -187,14 +187,19 @@ db.settings({
 <script>
   getHomeData();
   document.addEventListener('prechange', function (event) {
-  
+    var type = localStorage.getItem("type")
       if(event.index == 0){
         console.log('Home clicked');
         getHomeData();
       }
       else if(event.index == 1){
         console.log('Show clicked');
+        if(type == false){
         getShowProduct();
+        }else{
+          getShowProduct(type);
+        }
+        localStorage.clear("type");
       }
       else if(event.index == 2){
         console.log('Cart clicked');
@@ -203,8 +208,12 @@ db.settings({
 
   });
 
-function getShowProduct(){
+function getShowProduct(type){
+  if(type == null){
   var allProductRef = db.collection("PRODUCTS");//.where("category","==","toys");
+  }else{
+    var allProductRef = db.collection("PRODUCTS").where("category","==",type);
+  }
   allProductRef.get().then(function(querySnapshot) {
       var item = $('#item_template').html();
       console.log(querySnapshot.docs)
@@ -285,6 +294,7 @@ function addNewData(){
 
 }
 
+
 function addDataToCart(product){
   var allProductRef = db.collection("PRODUCTS").where("pid","==","1").get();
   console.log(allProductRef);
@@ -300,18 +310,15 @@ function addDataToCart(product){
 
 }
 
-function setvalue(item){
+function ShowFromType(type){
 
-  
-  localStorage.setItem('key', item);
-  var test = localStorage.getItem('key');
-  //console.log(localStorage.getItem('key'));
-  box.push(item);
-//$('#testappname').html(item);
-getCartData();
-  
+  localStorage.setItem("type",type);
+  document.getElementById("tabbar").setActiveTab(1);
+
 
 }
+
+
 
 </script>
 
