@@ -127,7 +127,7 @@ db.settings({
         <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
         </div>
         <div class="center">
-          <span class="list-item__title">
+          <span class="list-item__title" id="testappname">
             
           </span>
           <span class="list-item__subtitle" style="color: tomato;">
@@ -169,7 +169,8 @@ db.settings({
                   </span>
                 </div>
                 <div class="right">
-                  <i class="zmdi zmdi-shopping-cart-plus"></i>
+                    
+                  <button onclick="addDataToCart('<%= item.pid %>')"></button>
                 </div>
               </ons-list-item>
               <%});%>
@@ -206,6 +207,7 @@ function getShowProduct(){
   var allProductRef = db.collection("PRODUCTS");//.where("category","==","toys");
   allProductRef.get().then(function(querySnapshot) {
       var item = $('#item_template').html();
+      console.log(querySnapshot.docs)
       var html = ejs.render(item, {list_item: querySnapshot.docs})
       $('#item_show').html(html);
   
@@ -250,14 +252,16 @@ function getHomeData(){
     
   
 }
+var box=[];
 
 function getCartData(){
-  $.getJSON('cart.json', function(data){
-
-$('#appname').html(data.appname);
-
-});
   
+  //var html = ejs.render(icon_template, {categories : box});
+ // $('#icons').html(html);
+ for(var i=0;i<box.length-1;i++){
+  console.log("test2",box[i]);
+  }
+
 }
 
 function addNewData(){
@@ -266,6 +270,7 @@ function addNewData(){
       pid : 5,
       title : 'iPhone7',
       price : 3500,
+      photos: 'test',
       category : 'electronic'
     }
     db.collection("PRODUCTS").add(data)
@@ -280,6 +285,33 @@ function addNewData(){
 
 }
 
+function addDataToCart(product){
+  var allProductRef = db.collection("PRODUCTS").where("pid","==","1").get();
+  console.log(allProductRef);
+    db.collection("Cart").add(allProductRef)
+
+    .then(function(docRef){
+        console.log("Document written with ID:", docRef.id);
+    })
+    .catch(function(error){
+      console.log("Error adding document:", error);
+    });
+
+
+}
+
+function setvalue(item){
+
+  
+  localStorage.setItem('key', item);
+  var test = localStorage.getItem('key');
+  //console.log(localStorage.getItem('key'));
+  box.push(item);
+//$('#testappname').html(item);
+getCartData();
+  
+
+}
 
 </script>
 
