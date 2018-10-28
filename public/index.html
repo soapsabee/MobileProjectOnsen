@@ -8,6 +8,8 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
@@ -40,8 +42,7 @@ db.settings({
 </head>
 
 <body>
-
-
+  <ons-navigator title="Navigator" var="myNavigator" id="myNavigator" page="tab1.html">
   <ons-page>
     <ons-toolbar>
       <div class="center" id="appname">#</div>
@@ -68,7 +69,7 @@ db.settings({
     </ons-tabbar>
 
   </ons-page>
-
+</ons-navigator>
   <template id="tab1.html">
 
     <ons-page id="Tab1">
@@ -170,7 +171,8 @@ db.settings({
                 </div>
                 <div class="right">
                     
-                  <button onclick="addDataToCart('<%= item.pid %>')"></button>
+                  <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
+
                 </div>
               </ons-list-item>
               <%});%>
@@ -183,6 +185,42 @@ db.settings({
 
     </template>
 
+    <template id="tab4.html">
+
+      <ons-page id="Detail">
+        <ons-toolbar>
+            <div class="left"><ons-back-button>Back</ons-back-button></div>
+           
+      </ons-toolbar>
+      <div id="detail_show"></div>
+  
+
+      <script id="getDetail" type="text/template">
+        <% list_item.forEach(function(i){ var item = i.data(); %>
+        <ons-list-item style="background-color: white; ">
+            <div class="left" style="background: url('<%= item.picture %>') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+            </div>
+            <div class="center">
+              <span class="list-item__title" >
+                <div id="item"><%= item.title %></div>
+              </span>
+              <span class="list-item__subtitle" style="color: tomato;">
+                <%= item.price %>
+              </span>
+            </div>
+            <div class="right">
+                
+              <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
+
+            </div>
+          </ons-list-item>
+          <%});%>
+      </script>
+
+      </ons-page>
+
+  
+    </template>
 </body>
 <script>
   getHomeData();
@@ -318,6 +356,23 @@ function ShowFromType(type){
 
 }
 
+
+function DetailProduct(id){
+  
+ 
+    var allProductRef = db.collection("PRODUCTS").where("pid","==","1");
+  
+  allProductRef.get().then(function(querySnapshot) {
+      var item = $('#getDetail').html();
+      console.log(querySnapshot.docs)
+      var html = ejs.render(item, {list_item: querySnapshot.docs})
+      $('#detail_show').html(html);
+  
+      });
+
+  myNavigator.pushPage('tab4.html');
+  
+  }
 
 
 </script>
