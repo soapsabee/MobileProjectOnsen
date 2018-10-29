@@ -74,7 +74,7 @@ db.settings({
 
     <ons-page id="Tab1">
       <p style="text-align: center; margin-top: 10px;">
-        <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
+        <ons-search-input placeholder="Search" onchange="getSearch(this.value)"></ons-search-input>
       </p>
 
 
@@ -224,6 +224,8 @@ db.settings({
 </body>
 <script>
   getHomeData();
+  getStart();
+
   document.addEventListener('prechange', function (event) {
     var type = localStorage.getItem("type")
       if(event.index == 0){
@@ -374,6 +376,53 @@ function DetailProduct(id){
   
   }
 
+var data = [];
+
+function getStart(){
+
+var allProductRef = db.collection("PRODUCTS");
+
+allProductRef.get().then(function(querySnapshot) {
+
+   querySnapshot.docs.forEach(function (item) {
+          data.push(item.data())
+
+   
+
+ });
+
+
+
+
+})
+}
+
+
+function getSearch(search){
+  console.log(data);
+  
+
+  
+     const filterItems = (needle, heystack) => {
+    let query = needle.toLowerCase();
+    return heystack.filter(item => item.toLowerCase().indexOf(needle) >= 0);
+  }
+
+ 
+
+  //var print=filterItems(search, data[1]);
+
+  
+  //console.log("55+" + filterItems(search, data));
+  
+  
+  
+
+//document.getElementById('tabbar').setActiveTab(3);
+    // localStorage.setItem('title', item);
+
+
+}
 
 </script>
 
