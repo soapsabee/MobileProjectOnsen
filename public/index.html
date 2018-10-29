@@ -74,7 +74,7 @@ db.settings({
 
     <ons-page id="Tab1">
       <p style="text-align: center; margin-top: 10px;">
-        <ons-search-input placeholder="Search" onchange="getSearch(this.value)"></ons-search-input>
+        <ons-search-input placeholder="Search" id="searchbox" onchange="getSearch(this.value)"></ons-search-input>
       </p>
 
 
@@ -228,18 +228,20 @@ db.settings({
 
   document.addEventListener('prechange', function (event) {
     var type = localStorage.getItem("type")
+    var search = localStorage.getItem("search")
       if(event.index == 0){
         console.log('Home clicked');
         getHomeData();
       }
       else if(event.index == 1){
         console.log('Show clicked');
-        if(type == false){
+        if(type == null && search ==null){
         getShowProduct();
-        }else{
+        }else if(type != null){
           getShowProduct(type);
         }
         localStorage.clear("type");
+        localStorage.clear("search");
       }
       else if(event.index == 2){
         console.log('Cart clicked');
@@ -385,7 +387,7 @@ var allProductRef = db.collection("PRODUCTS");
 allProductRef.get().then(function(querySnapshot) {
 
    querySnapshot.docs.forEach(function (item) {
-          data.push(item.data())
+          data.push(item)
 
    
 
@@ -401,21 +403,21 @@ allProductRef.get().then(function(querySnapshot) {
 function getSearch(search){
   console.log(data);
   
-
+    localStorage.setItem("search","true")
   
      const filterItems = (needle, heystack) => {
     let query = needle.toLowerCase();
-    return heystack.filter(item => item.toLowerCase().indexOf(needle) >= 0);
+    return heystack.filter(item => item.data().title.toLowerCase().indexOf(needle) >= 0);
   }
 
  
 
-  //var print=filterItems(search, data[1]);
+  var print= filterItems(search, data);
 
   
-  //console.log("55+" + filterItems(search, data));
-  
-  
+  console.log("55+" , print);
+  search = null;
+  test(print);
   
 
 //document.getElementById('tabbar').setActiveTab(3);
@@ -423,6 +425,17 @@ function getSearch(search){
 
 
 }
+
+ function test(print){
+
+  var item = $('#item_template').html();
+    var html = ejs.render(item, {list_item: print})
+      $('#item_show').html(html);
+
+      document.getElementById("tabbar").setActiveTab(1);
+      document.getElementById("searchbox").reset();
+  }
+  
 
 </script>
 
