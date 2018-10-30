@@ -405,14 +405,14 @@ function getSearch(search){
   
      const filterItems = (needle, heystack) => {
     let query = needle.toLowerCase();
-    return heystack.filter(item => item.toLowerCase().indexOf(needle) >= 0);
+    return heystack.filter(item => item.data().title.toLowerCase().indexOf(needle) >= 0);
   }
 
  
 
-  //var print=filterItems(search, data[1]);
+  var print=filterItems(search, data);
 
-  
+  test(t)
   //console.log("55+" + filterItems(search, data));
   
   
