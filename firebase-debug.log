@@ -1,0 +1,28 @@
+[debug] [2018-10-30T04:53:32.184Z] ----------------------------------------------------------------------
+[debug] [2018-10-30T04:53:32.203Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Soapsabye\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-10-30T04:53:32.204Z] CLI Version:   4.2.1
+[debug] [2018-10-30T04:53:32.204Z] Platform:      win32
+[debug] [2018-10-30T04:53:32.204Z] Node Version:  v8.11.4
+[debug] [2018-10-30T04:53:32.216Z] Time:          Tue Oct 30 2018 11:53:32 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-10-30T04:53:32.216Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-30T04:53:32.283Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-30T04:53:32.284Z] > authorizing via signed-in user
+[debug] [2018-10-30T04:53:32.287Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-30T04:53:32.288Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-10-30T04:53:32.662Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-30T04:53:32.790Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/shopee-2428c  
+ 
+[debug] [2018-10-30T04:53:33.861Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-30T04:53:33.863Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/shopee-2428c  
+ 
+[debug] [2018-10-30T04:53:35.267Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'E:\ProjectOnsen\TestFirebase'...
+[info] 
+[debug] [2018-10-30T04:53:35.300Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/808649182528/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-30T04:53:35.835Z] <<< HTTP RESPONSE 200
+[info] i  hosting[shopee-2428c]: Serving hosting files from: public
+[info] +  hosting[shopee-2428c]: Local server: http://localhost:5000

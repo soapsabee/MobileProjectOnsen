@@ -171,7 +171,7 @@ db.settings({
                 </div>
                 <div class="right">
                     
-                  <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
+                  <i class="fas fa-angle-double-right" onclick="DetailProduct(<%= item.pid %>)"></i>
 
                 </div>
               </ons-list-item>
@@ -189,7 +189,7 @@ db.settings({
 
       <ons-page id="Detail">
         <ons-toolbar>
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
+            <div class="left"><ons-back-button>Back</ons-back-button>รายละเอียดสินค้า</div>
            
       </ons-toolbar>
       <div id="detail_show"></div>
@@ -197,25 +197,35 @@ db.settings({
 
       <script id="getDetail" type="text/template">
         <% list_item.forEach(function(i){ var item = i.data(); %>
-        <ons-list-item style="background-color: white; ">
-            <div class="left" style="background: url('<%= item.picture %>') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-            </div>
-            <div class="center">
-              <span class="list-item__title" >
-                <div id="item"><%= item.title %></div>
-              </span>
-              <span class="list-item__subtitle" style="color: tomato;">
-                <%= item.price %>
-              </span>
-            </div>
-            <div class="right">
-                
-              <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
-
-            </div>
-          </ons-list-item>
+      
+      
+        <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 200px;">
+            <% for(var j=0;j < item.picture.length;j++){  %>
+          <ons-carousel-item id="carousel1" style="background: url('<%= item.picture[j] %>') no-repeat center;" >
+  
+          </ons-carousel-item>
           <%});%>
-      </script>
+        </ons-carousel>
+        <ons-card>
+        <div class="title">
+            <%= item.title %>
+        </div>
+        <div class="content">
+          <div>
+            <ons-button><ons-icon icon="ion-thumbsup"></ons-icon></ons-button>
+            <ons-button><ons-icon icon="ion-share"></ons-icon></ons-button>
+          </div>
+          <ons-list>
+            <ons-list-header>Bindings</ons-list-header>
+            <ons-list-item> <%= item.price %></ons-list-item>
+            <ons-list-item>Angular</ons-list-item>
+            <ons-list-item>React</ons-list-item>
+          </ons-list>
+        </div>
+      </ons-card>
+      <%});%>
+    </script>
+   
 
       </ons-page>
 
@@ -362,9 +372,10 @@ function ShowFromType(type){
 
 
 function DetailProduct(id){
-  
- 
-    var allProductRef = db.collection("PRODUCTS").where("pid","==","1");
+
+    console.log("print",id)
+
+    var allProductRef = db.collection("PRODUCTS").where("pid","==",id);
   
   allProductRef.get().then(function(querySnapshot) {
       var item = $('#getDetail').html();
@@ -373,6 +384,8 @@ function DetailProduct(id){
       $('#detail_show').html(html);
   
       });
+
+      
 
   myNavigator.pushPage('tab4.html');
   
