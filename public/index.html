@@ -121,32 +121,7 @@ db.settings({
     </ons-page>
   </template>
 
-  <template id="tab3.html">
-    <ons-page id="Cart">
-      <ons-list-header>List all product</ons-list-header>
-      <ons-list-item style="background-color: white; ">
-        <div class="left" style="background: url('pic/item1.jpg') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
-        </div>
-        <div class="center">
-          <span class="list-item__title" id="testappname">
-            
-          </span>
-          <span class="list-item__subtitle" style="color: tomato;">
-            2,500 Bath
-          </span>
-        </div>
-        <div class="right">
-          <i class="zmdi zmdi-delete"></i>
-        </div>
-      </ons-list-item>
   
-
-      <ons-button style="background-color:greenyellow; width: 100%;">
-        <p style="color:gray; text-align: center;">Proceed To Play</p>
-      </ons-button>
-    </ons-page>
-  </template>
-
     <template id="tab2.html">
       <ons-page id="test">
       
@@ -184,6 +159,46 @@ db.settings({
       </ons-page>
 
     </template>
+
+
+
+    
+  <template id="tab3.html">
+      
+      <ons-page id="test3">
+          
+          <div id="cart_show"></div>
+          
+            <script id="cart_template" type="text/template">
+              <% list_item.forEach(function(i){ var item = i.data(); %>
+              <ons-list-item style="background-color: white; ">
+                  <div class="left" style="background: url('<%= item.picture[0] %>') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+                  </div>
+                  <div class="center">
+                    <span class="list-item__title" >
+                      <div id="item"><%= item.title %></div>
+                    </span>
+                    <span class="list-item__subtitle" style="color: tomato;">
+                      <%= item.price %>
+                    </span>
+                  </div>
+                  <div class="right">
+                      
+                    <i class="fas fa-angle-double-right" onclick="DetailProduct(<%= item.pid %>)"></i>
+  
+                  </div>
+                </ons-list-item>
+                <%});%>
+            </script>
+    
+          <ons-button style="background-color:gold; width: 100%;">
+            <p style="color:gray; text-align: center;">Confirm Payment</p>
+          </ons-button>
+        </ons-page>
+  
+    </template>
+
+
 
     <template id="tab4.html">
 
@@ -223,7 +238,7 @@ db.settings({
               <ons-list-item>React</ons-list-item>
             </ons-list>
           </div>
-          <ons-button onclick="addtocart('<%= item.pid %>')">ADD TO CART</ons-button>
+          <ons-button onclick="addtocart(<%= item.pid %>)">ADD TO CART</ons-button>
           <%});%>
           </ons-card>
         
@@ -258,6 +273,7 @@ db.settings({
       else if(event.index == 2){
         console.log('Cart clicked');
         getCartData();
+       
       }
 
   });
@@ -315,17 +331,7 @@ function getHomeData(){
     
   
 }
-var box=[];
 
-function getCartData(){
-  
-  //var html = ejs.render(icon_template, {categories : box});
- // $('#icons').html(html);
- for(var i=0;i<box.length-1;i++){
-  console.log("test2",box[i]);
-  }
-
-}
 
 function addNewData(){
     
@@ -349,18 +355,34 @@ function addNewData(){
 }
 
 
-function addDataToCart(product){
-  var allProductRef = db.collection("PRODUCTS").where("pid","==","1").get();
-  console.log(allProductRef);
-    db.collection("Cart").add(allProductRef)
 
-    .then(function(docRef){
-        console.log("Document written with ID:", docRef.id);
-    })
-    .catch(function(error){
-      console.log("Error adding document:", error);
-    });
+function getCartData(){
 
+   dataTocart.forEach(function(dataCart){
+  var allProductRef = db.collection("PRODUCTS").where("pid","==",dataCart);
+  console.log('test')
+  allProductRef.get().then(function(querySnapshot) {
+      var item = $('#cart_template').html();
+      console.log(querySnapshot.docs)
+      var html = ejs.render(item, {list_item: querySnapshot.docs})
+      $('#cart_show').append(html);
+  
+      });
+   })
+}
+
+function addDataToCart(){
+  
+   /* var allProductRef = db.collection("PRODUCTS").where("pid","==",1);
+  
+  
+      allProductRef.get().then(function(querySnapshot) {
+      var item = $('#cart_template').html();
+      var html = ejs.render(item, {list_item: querySnapshot.docs})
+      $('#cart').html(html);
+  
+      });*/
+ console.log('test')
 
 }
 
@@ -389,6 +411,8 @@ function DetailProduct(id){
   myNavigator.pushPage('tab4.html');
   
   }
+
+
 
 var data = [];
 
@@ -448,6 +472,17 @@ function getSearch(search){
      
   }
   
+
+  var dataTocart = [];
+
+
+  function addtocart(data){
+        dataTocart.push(data);
+        console.log(dataTocart[0])
+  }
+
+  
+
 
 </script>
 
