@@ -74,7 +74,7 @@ db.settings({
 
     <ons-page id="Tab1">
       <p style="text-align: center; margin-top: 10px;">
-        <ons-search-input placeholder="Search" onchange="getSearch(this.value)"></ons-search-input>
+        <ons-search-input placeholder="Search" id="searchbox" onchange="getSearch(this.value)"></ons-search-input>
       </p>
 
 
@@ -171,7 +171,7 @@ db.settings({
                 </div>
                 <div class="right">
                     
-                  <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
+                  <i class="fas fa-angle-double-right" onclick="DetailProduct(<%= item.pid %>)"></i>
 
                 </div>
               </ons-list-item>
@@ -189,32 +189,44 @@ db.settings({
 
       <ons-page id="Detail">
         <ons-toolbar>
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
+            <div class="left"><ons-back-button>Back</ons-back-button>รายละเอียดสินค้า</div>
            
       </ons-toolbar>
       <div id="detail_show"></div>
   
 
       <script id="getDetail" type="text/template">
+        <ons-card>
+            <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
+                <% list_item.forEach(function(data){  
+                  var data = data.data().picture; %>
+    
+                  <% data.forEach(function(data){   %>
+                    <ons-carousel-item id="carousel1DeP" style="background: url('<%= data %>') no-repeat center; background-size: contain;">  
+                    </ons-carousel-item>
+                    <% })%>                                        
+                    <% })%>
+                  
+             </ons-carousel>
         <% list_item.forEach(function(i){ var item = i.data(); %>
-        <ons-list-item style="background-color: white; ">
-            <div class="left" style="background: url('<%= item.picture %>') no-repeat center; background-size: 50px; width: 50px; height: 50px;">
+          <div class="title">
+            <%= item.price%>
+          </div>
+          <div class="content">
+            <div>
+              <%= item.title %>
             </div>
-            <div class="center">
-              <span class="list-item__title" >
-                <div id="item"><%= item.title %></div>
-              </span>
-              <span class="list-item__subtitle" style="color: tomato;">
-                <%= item.price %>
-              </span>
-            </div>
-            <div class="right">
-                
-              <i class="fas fa-angle-double-right" onclick="DetailProduct('<%= item.pid %>')"></i>
-
-            </div>
-          </ons-list-item>
+            <ons-list>
+              <ons-list-header>Bindings</ons-list-header>
+              <ons-list-item>Vue</ons-list-item>
+              <ons-list-item>Angular</ons-list-item>
+              <ons-list-item>React</ons-list-item>
+            </ons-list>
+          </div>
+          <ons-button onclick="addtocart('<%= item.pid %>')">ADD TO CART</ons-button>
           <%});%>
+          </ons-card>
+        
       </script>
 
       </ons-page>
@@ -228,18 +240,20 @@ db.settings({
 
   document.addEventListener('prechange', function (event) {
     var type = localStorage.getItem("type")
+    var search = localStorage.getItem("search")
       if(event.index == 0){
         console.log('Home clicked');
         getHomeData();
       }
       else if(event.index == 1){
         console.log('Show clicked');
-        if(type == false){
+        if(type == null && search ==null){
         getShowProduct();
-        }else{
+        }else if(type != null){
           getShowProduct(type);
         }
         localStorage.clear("type");
+        localStorage.clear("search");
       }
       else if(event.index == 2){
         console.log('Cart clicked');
@@ -362,7 +376,7 @@ function ShowFromType(type){
 function DetailProduct(id){
   
  
-    var allProductRef = db.collection("PRODUCTS").where("pid","==","1");
+    var allProductRef = db.collection("PRODUCTS").where("pid","==",id);
   
   allProductRef.get().then(function(querySnapshot) {
       var item = $('#getDetail').html();
@@ -385,7 +399,7 @@ var allProductRef = db.collection("PRODUCTS");
 allProductRef.get().then(function(querySnapshot) {
 
    querySnapshot.docs.forEach(function (item) {
-          data.push(item.data())
+          data.push(item)
 
    
 
@@ -401,7 +415,7 @@ allProductRef.get().then(function(querySnapshot) {
 function getSearch(search){
   console.log(data);
   
-
+    localStorage.setItem("search","true")
   
      const filterItems = (needle, heystack) => {
     let query = needle.toLowerCase();
@@ -410,12 +424,12 @@ function getSearch(search){
 
  
 
-  var print=filterItems(search, data);
+  var print= filterItems(search, data);
 
-  test(t)
-  //console.log("55+" + filterItems(search, data));
   
-  
+  console.log("55+" , print);
+  search = null;
+  test(print);
   
 
 //document.getElementById('tabbar').setActiveTab(3);
@@ -423,6 +437,17 @@ function getSearch(search){
 
 
 }
+
+ function test(print){
+
+  var item = $('#item_template').html();
+    var html = ejs.render(item, {list_item: print})
+      $('#item_show').html(html);
+      var print = null;
+      document.getElementById("tabbar").setActiveTab(1);
+     
+  }
+  
 
 </script>
 
