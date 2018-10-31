@@ -44,7 +44,7 @@
 </head>
 
 <body>
-  <ons-navigator title="Navigator" var="myNavigator" id="myNavigator" page="tab1.html">
+  <ons-navigator title="Navigator" var="myNavigator" id="myNavigator" page="tab1.html" >
     <ons-page>
       <ons-toolbar>
         <div class="center" id="appname">#</div>
@@ -61,12 +61,12 @@
         </div>
       </ons-toolbar>
 
-      <ons-tabbar swipeable position="auto" id="tabbar">
+      <ons-tabbar swipeable position="auto" id="tabbar" >
         <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
         </ons-tab>
-        <ons-tab page="tab2.html" label="Shop" icon="fa-shopping-bag">
+        <ons-tab page="tab2.html" label="Shop" icon="fa-shopping-bag" >
         </ons-tab>
-        <ons-tab page="tab3.html" label="Cart" icon="fa-shopping-cart">
+        <ons-tab page="tab3.html" label="Cart" icon="fa-shopping-cart" id="badge">
         </ons-tab>
       </ons-tabbar>
 
@@ -97,16 +97,16 @@
 
       <div>
         <div id="icons"></div>
-
+       
         <script id="icon_template" type="text/template">
               <ons-row class="category" style="margin-top:20px; ">
               <% categories.forEach(function(category){%>
-          <ons-col style="background: tomato; height: auto; " width="33%"modifier="nodivider" onclick="ShowFromType('<%= category.name %>')">
+          <ons-col style="background: pink; height: auto; " width="33%"modifier="nodivider" onclick="ShowFromType('<%= category.name %>')">
             <div class="category_wrapper">
               <p style="text-align:center;" class="category_thumbnail">
-                <ons-icon size="50px" id="icon1" icon="<%= category.icon %>"></ons-icon>       
+                <ons-icon size="50px" id="icon1" style="color:gray"icon="<%= category.icon %>"></ons-icon>       
               </p>
-              <p id="icon1_text" style="text-align: center;"><%= category.name %></p>      
+              <p id="icon1_text" style="color:gray;text-align: center;"><%= category.name %></p>      
             </div>
           </ons-col> 
        
@@ -155,7 +155,7 @@
           </script>
 
       <ons-button style="background-color: burlywood; width: 100%;">
-        <p style="color:gray; text-align: center;">เพิ่มสินค้าของคุณt</p>
+        <p style="color:white; text-align: center;">เพิ่มสินค้าของคุณ</p>
       </ons-button>
     </ons-page>
 
@@ -358,7 +358,8 @@
 
 
   function getCartData() {
-
+    $("#badge").attr('badge','');
+  
     document.getElementById('cart_show').innerHTML = "";
     var numdel = 0;
     dataTocart.forEach(function (data) {
@@ -463,7 +464,9 @@
 
   function addtocart(data) {
     dataTocart.push(data);
-
+    alert('สินค้าถูกเพิ่มเข้าตะกร้าเรียบร้อย')
+    $("#badge").attr('badge', dataTocart.length);
+    
   }
 
   function getDelete(i) {
