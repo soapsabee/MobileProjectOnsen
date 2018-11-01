@@ -173,7 +173,7 @@
 
         
       </div>
-     
+      <div id="non_show" style="text-align: center; margin-top: 200px;">ยังไม่มีสินค้าในตะกร้า</div>
       <script id="cart_template" type="text/template">
               <% list_item.forEach(function(i){ var item = i.data(); %>
               <ons-list-item style="background-color: white; ">
@@ -385,13 +385,17 @@
         $('#cart_show').append(html);
 
 
-
-
         numdel = numdel + 1;
       });
-
+      
 
     })
+
+    if(dataTocart[0] != null){
+      $("#non_show").html("");
+    }else{
+      $("#non_show").html("ยังไม่มีสินค้าในตะกร้า");
+    }
   }
 
 
